@@ -1,0 +1,43 @@
+/*
+ * main.c
+ *
+ *  Created on: 30 Jul 2022
+ *      Author: Ahmed Salama
+ */
+#include <stdio.h>
+int primenum(int x);
+int main (){
+	int x ,y;
+	printf ("please enter two numbers:");
+	fflush(stdin);fflush(stdout);
+	scanf("%d%d",&x,&y);
+	if (x>y){
+		for (;y<=x;++y){
+			printf ("%d",primenum(y));
+		}
+	}
+	else if (y>x){
+		for (;x<=y;++x){
+			printf ("%d",primenum(x));
+		}
+
+	}else {
+		printf ("%d",primenum(x));
+	}
+	return 0;
+}
+int primenum(int x){
+	int i;
+	int flag=0;
+	for(i=2;i<=(x/2);++i){
+		if ((x%i)==0){
+			flag=1;
+		}
+	}
+	if (flag==1){
+		return x;
+	}
+	else
+		return '\0';
+}
+

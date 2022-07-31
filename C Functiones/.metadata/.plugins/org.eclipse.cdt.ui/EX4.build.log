@@ -1,0 +1,6 @@
+01:23:32 **** Incremental Build of configuration Debug for project EX4 ****
+Info: Internal Builder is used for build
+gcc -ansi -std=c89 -o EX4.exe main.o 
+
+01:23:33 Build Finished (took 643ms)
+
