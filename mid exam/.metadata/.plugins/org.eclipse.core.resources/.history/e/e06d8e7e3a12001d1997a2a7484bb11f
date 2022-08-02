@@ -1,0 +1,22 @@
+/*
+ * main.c
+ *
+ *  Created on: 2 Aug 2022
+ *      Author: ahmed
+ */
+#include <stdio.h>
+int main (){
+	char x[100];
+	int i ;
+		printf("please enter string");
+		gets(x);
+		int f=strlen(x)/2;
+	int swap;
+	for (i=0;i<f;++i){
+		swap=x[f-1-i];
+		x[i]=x[f-i];
+		x[f-i]=swap;
+	}
+	puts(x);
+	return 0;
+}
