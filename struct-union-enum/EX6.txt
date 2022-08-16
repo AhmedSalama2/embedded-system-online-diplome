@@ -1,2 +1,0 @@
-size of struct =40
-size of union =32
