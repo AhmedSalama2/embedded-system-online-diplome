@@ -1,0 +1,124 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+Bss_get             0x28              main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+flash            0x08000000         0x00020000         xr
+sram             0x20000000         0x00005000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x08000000      0x180
+ *(.vectors*)
+ .vectors       0x08000000       0x1c stratup.o
+                0x08000000                vector
+ *(.text*)
+ .text          0x0800001c       0xa8 main.o
+                0x0800001c                main
+ .text          0x080000c4       0xbc stratup.o
+                0x080000c4                NMI_Handler
+                0x080000c4                H_Fault_Handler
+                0x080000c4                Default_Hundler
+                0x080000c4                MM_Fault_Handler
+                0x080000c4                Bus_Fault
+                0x080000c4                Usage_Fault_Handler
+                0x080000d0                Reset_Hundler
+ *(.rodata*)
+                0x08000180                . = ALIGN (0x4)
+                0x08000180                E_TEXT = .
+
+.glue_7         0x08000180        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x08000180        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x08000180        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x08000180        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x08000180        0x0
+ .iplt          0x00000000        0x0 main.o
+
+.rel.dyn        0x08000180        0x0
+ .rel.iplt      0x00000000        0x0 main.o
+
+.data           0x20000000       0x2c load address 0x08000180
+                0x20000000                S_DATA = .
+ *(.data*)
+ .data          0x20000000       0x2c main.o
+                0x20000000                R_ODR
+                0x20000004                data_get
+ .data          0x2000002c        0x0 stratup.o
+                0x2000002c                . = ALIGN (0x4)
+                0x2000002c                E_DATA = .
+
+.igot.plt       0x2000002c        0x0 load address 0x080001ac
+ .igot.plt      0x00000000        0x0 main.o
+
+.bss            0x2000002c       0x28 load address 0x080001ac
+                0x2000002c                S_BSS = .
+ *(.bss*)
+ .bss           0x2000002c        0x0 main.o
+ .bss           0x2000002c        0x0 stratup.o
+                0x2000002c                . = ALIGN (0x4)
+                0x2000002c                E_BSS = .
+ COMMON         0x2000002c       0x28 main.o
+                0x2000002c                Bss_get
+                0x20001054                . = (. + 0x1000)
+                0x20001054                _stack_top = .
+LOAD main.o
+LOAD stratup.o
+OUTPUT(lesson4_Lab_3.elf elf32-littlearm)
+
+.debug_info     0x00000000      0x304
+ .debug_info    0x00000000      0x182 main.o
+ .debug_info    0x00000182      0x182 stratup.o
+
+.debug_abbrev   0x00000000      0x18a
+ .debug_abbrev  0x00000000       0xd1 main.o
+ .debug_abbrev  0x000000d1       0xb9 stratup.o
+
+.debug_loc      0x00000000       0x9c
+ .debug_loc     0x00000000       0x38 main.o
+ .debug_loc     0x00000038       0x64 stratup.o
+
+.debug_aranges  0x00000000       0x40
+ .debug_aranges
+                0x00000000       0x20 main.o
+ .debug_aranges
+                0x00000020       0x20 stratup.o
+
+.debug_line     0x00000000       0xe7
+ .debug_line    0x00000000       0x6a main.o
+ .debug_line    0x0000006a       0x7d stratup.o
+
+.debug_str      0x00000000      0x1bc
+ .debug_str     0x00000000      0x135 main.o
+                                0x170 (size before relaxing)
+ .debug_str     0x00000135       0x87 stratup.o
+                                0x18f (size before relaxing)
+
+.comment        0x00000000       0x11
+ .comment       0x00000000       0x11 main.o
+                                 0x12 (size before relaxing)
+ .comment       0x00000000       0x12 stratup.o
+
+.ARM.attributes
+                0x00000000       0x33
+ .ARM.attributes
+                0x00000000       0x33 main.o
+ .ARM.attributes
+                0x00000033       0x33 stratup.o
+
+.debug_frame    0x00000000       0x78
+ .debug_frame   0x00000000       0x2c main.o
+ .debug_frame   0x0000002c       0x4c stratup.o

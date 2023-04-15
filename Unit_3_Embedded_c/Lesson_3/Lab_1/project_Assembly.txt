@@ -1,0 +1,45 @@
+
+project.elf:     file format elf32-littlearm
+
+
+Disassembly of section .startup:
+
+00010000 <reset>:
+   10000:	e59fd004 	ldr	sp, [pc, #4]	; 1000c <stop+0x4>
+   10004:	eb000001 	bl	10010 <main>
+
+00010008 <stop>:
+   10008:	eafffffe 	b	10008 <stop>
+   1000c:	000110dc 	.word	0x000110dc
+
+Disassembly of section .text:
+
+00010010 <main>:
+   10010:	e92d4800 	push	{fp, lr}
+   10014:	e28db004 	add	fp, sp, #4
+   10018:	e59f0004 	ldr	r0, [pc, #4]	; 10024 <main+0x14>
+   1001c:	eb000001 	bl	10028 <UART_SEND_STRING>
+   10020:	e8bd8800 	pop	{fp, pc}
+   10024:	00010078 	.word	0x00010078
+
+00010028 <UART_SEND_STRING>:
+   10028:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+   1002c:	e28db000 	add	fp, sp, #0
+   10030:	e24dd00c 	sub	sp, sp, #12
+   10034:	e50b0008 	str	r0, [fp, #-8]
+   10038:	ea000006 	b	10058 <UART_SEND_STRING+0x30>
+   1003c:	e59f3030 	ldr	r3, [pc, #48]	; 10074 <UART_SEND_STRING+0x4c>
+   10040:	e51b2008 	ldr	r2, [fp, #-8]
+   10044:	e5d22000 	ldrb	r2, [r2]
+   10048:	e5832000 	str	r2, [r3]
+   1004c:	e51b3008 	ldr	r3, [fp, #-8]
+   10050:	e2833001 	add	r3, r3, #1
+   10054:	e50b3008 	str	r3, [fp, #-8]
+   10058:	e51b3008 	ldr	r3, [fp, #-8]
+   1005c:	e5d33000 	ldrb	r3, [r3]
+   10060:	e3530000 	cmp	r3, #0
+   10064:	1afffff4 	bne	1003c <UART_SEND_STRING+0x14>
+   10068:	e28bd000 	add	sp, fp, #0
+   1006c:	e8bd0800 	ldmfd	sp!, {fp}
+   10070:	e12fff1e 	bx	lr
+   10074:	101f1000 	.word	0x101f1000
