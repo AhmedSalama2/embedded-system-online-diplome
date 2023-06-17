@@ -2,6 +2,7 @@ CC=arm-none-eabi-
 CFLAGS= -mthumb -mcpu=cortex-m3 -gdwarf-2 
 INCS= -I .
 LIBS=
+
 SRC=$(wildcard *.c)
 OBJ= $(SRC:.c=.o)
 
